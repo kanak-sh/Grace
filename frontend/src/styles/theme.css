@@ -1,0 +1,82 @@
+:root {
+  /* Typography */
+  --font-display: "DM Serif Display", Georgia, serif;
+  --font-body: "DM Sans", Arial, sans-serif;
+
+  /* Shape */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* Spacing */
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Motion */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}
+
+/* -------------------------
+   Light Theme
+------------------------- */
+
+[data-theme="light"] {
+  --color-background: #f6f3ee;
+  --color-surface: #ffffff;
+  --color-surface-soft: #eeeae3;
+
+  --color-text: #29272a;
+  --color-text-secondary: #6f6a6b;
+  --color-text-muted: #999294;
+
+  --color-border: #e5dfd9;
+
+  --color-primary: #914f68;
+  --color-primary-soft: #ead8df;
+
+  --color-accent: #d47b62;
+  --color-accent-soft: #f2ddd6;
+
+  --color-sage: #71806c;
+  --color-sage-soft: #dfe5dc;
+
+  --color-blue: #667b96;
+  --color-blue-soft: #dce3eb;
+
+  --color-shadow: rgba(41, 39, 42, 0.08);
+}
+
+/* -------------------------
+   Dark Theme
+------------------------- */
+
+[data-theme="dark"] {
+  --color-background: #1d1c20;
+  --color-surface: #28262b;
+  --color-surface-soft: #333036;
+
+  --color-text: #f3efeb;
+  --color-text-secondary: #b7afb2;
+  --color-text-muted: #817a7e;
+
+  --color-border: #3b373d;
+
+  --color-primary: #d18ba4;
+  --color-primary-soft: #49323d;
+
+  --color-accent: #df947d;
+  --color-accent-soft: #4a342e;
+
+  --color-sage: #9baa94;
+  --color-sage-soft: #354035;
+
+  --color-blue: #91a8c4;
+  --color-blue-soft: #303b49;
+
+  --color-shadow: rgba(0, 0, 0, 0.25);
+}

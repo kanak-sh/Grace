@@ -1,41 +1,38 @@
 
-import { useEffect, useState } from 'react'
-import { getBackendHealth } from './services/api'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router'
 
-function App() {
-  const [message, setMessage] = useState('Connecting to Grace...')
-  const [connected, setConnected] = useState(false)
+import AppLayout from './components/layout/AppLayout'
+import Home from './pages/Home'
+import Companion from './pages/Companion'
+import Health from './pages/Health'
+import Hobbies from './pages/Hobbies'
+import Notes from './pages/Notes'
+import Create from './pages/Create'
+import Music from './pages/Music'
+import Profile from './pages/Profile'
+import Settings from './pages/Settings'
+import More from './pages/More'
 
-  useEffect(() => {
-    getBackendHealth()
-      .then((data) => {
-        setMessage(data.message)
-        setConnected(true)
-      })
-      .catch(() => {
-        setMessage('Unable to connect to Grace backend')
-      })
-  }, [])
+import './App.css'
 
+export default function App() {
   return (
-    <main style={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textAlign: 'center',
-      padding: '24px'
-    }}>
-      <h1>Welcome to Grace 🌸</h1>
-      <p>{message}</p>
-      <p>
-        {connected
-          ? 'Frontend and backend are connected!'
-          : 'Checking backend connection...'}
-      </p>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route index element={<Home />} />
+          <Route path="companion" element={<Companion />} />
+          <Route path="health" element={<Health />} />
+          <Route path="hobbies" element={<Hobbies />} />
+          <Route path="notes" element={<Notes />} />
+          <Route path="create" element={<Create />} />
+          <Route path="music" element={<Music />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="more" element={<More />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
-
-export default App
