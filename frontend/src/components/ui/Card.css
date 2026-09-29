@@ -1,0 +1,33 @@
+.grace-card {
+  border-radius: var(--radius-lg);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+/* Variants */
+.grace-card--elevated {
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+}
+
+.grace-card--outlined {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+}
+
+.grace-card--filled {
+  background: var(--color-surface-soft);
+}
+
+/* Padding */
+.grace-card--padding-none { padding: 0; }
+.grace-card--padding-sm { padding: var(--space-md); }
+.grace-card--padding-md { padding: var(--space-lg); }
+.grace-card--padding-lg { padding: var(--space-xl); }
+
+/* Hover lift for elevated cards */
+.grace-card--elevated:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}

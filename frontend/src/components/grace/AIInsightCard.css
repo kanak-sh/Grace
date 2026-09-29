@@ -1,0 +1,69 @@
+.grace-ai-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.grace-ai-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.grace-ai-card--positive::before {
+  background: linear-gradient(90deg, var(--color-success), var(--color-lavender));
+}
+
+.grace-ai-card--neutral::before {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+}
+
+.grace-ai-card--gentle::before {
+  background: linear-gradient(90deg, var(--color-gold), var(--color-accent));
+}
+
+.grace-ai-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.grace-ai-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 16px;
+}
+
+.grace-ai-card-label {
+  font-size: var(--text-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.grace-ai-card-title {
+  margin: 0 0 var(--space-sm);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.grace-ai-card-body {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.grace-ai-card-action {
+  margin-top: var(--space-md);
+}

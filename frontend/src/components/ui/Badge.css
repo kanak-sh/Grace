@@ -1,0 +1,68 @@
+.grace-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 5px 12px;
+  font-size: var(--text-label);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.grace-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Variants */
+.grace-badge--primary {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.grace-badge--accent {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.grace-badge--lavender {
+  background: var(--color-lavender-soft);
+  color: var(--color-lavender);
+}
+
+.grace-badge--gold {
+  background: var(--color-gold-soft);
+  color: var(--color-gold);
+}
+
+.grace-badge--gold {
+  background: var(--color-gold-soft);
+  color: var(--color-gold);
+}
+
+.grace-badge--success {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.grace-badge--warning {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.grace-badge--error {
+  background: var(--color-error-soft);
+  color: var(--color-error);
+}
+
+.grace-badge--neutral {
+  background: var(--color-surface-soft);
+  color: var(--color-text-secondary);
+}

@@ -1,0 +1,69 @@
+.grace-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.grace-icon-btn:active {
+  transform: scale(0.92);
+}
+
+/* Sizes */
+.grace-icon-btn--sm {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  border-radius: var(--radius-sm);
+}
+
+.grace-icon-btn--md {
+  width: 42px;
+  height: 42px;
+  font-size: 20px;
+}
+
+.grace-icon-btn--lg {
+  width: 52px;
+  height: 52px;
+  font-size: 24px;
+  border-radius: var(--radius-lg);
+}
+
+/* Variants */
+.grace-icon-btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.grace-icon-btn--primary:hover {
+  filter: brightness(1.08);
+}
+
+.grace-icon-btn--secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1.5px solid var(--color-border);
+}
+
+.grace-icon-btn--secondary:hover {
+  background: var(--color-surface-soft);
+}
+
+.grace-icon-btn--ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.grace-icon-btn--ghost:hover {
+  background: var(--color-surface-soft);
+  color: var(--color-text);
+}

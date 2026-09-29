@@ -1,0 +1,26 @@
+.grace-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.grace-section-header-title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.grace-section-header-subtitle {
+  margin: 4px 0 0;
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+.grace-section-header-action {
+  flex-shrink: 0;
+}

@@ -1,0 +1,84 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+/* Greeting */
+.home-greeting {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.home-greeting-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.home-greeting-time {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--color-text-muted);
+}
+
+.home-greeting-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-weight: 400;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+/* Sections */
+.home-section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Stats grid */
+.home-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+
+/* Mood chips */
+.home-moods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+/* Features grid */
+.home-features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+
+.home-feature-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .home-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .home-features {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .home-features {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

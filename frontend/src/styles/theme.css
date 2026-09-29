@@ -3,11 +3,22 @@
   --font-display: "DM Serif Display", Georgia, serif;
   --font-body: "DM Sans", Arial, sans-serif;
 
+  /* Typography Scale */
+  --text-display: clamp(36px, 6vw, 56px);
+  --text-h1: clamp(28px, 4.5vw, 40px);
+  --text-h2: clamp(22px, 3.5vw, 30px);
+  --text-h3: clamp(18px, 2.5vw, 22px);
+  --text-body: 16px;
+  --text-body-sm: 14px;
+  --text-caption: 12px;
+  --text-label: 11px;
+
   /* Shape */
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-xl: 32px;
+  --radius-full: 9999px;
 
   /* Spacing */
   --space-xs: 6px;
@@ -15,68 +26,99 @@
   --space-md: 16px;
   --space-lg: 24px;
   --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
 
   /* Motion */
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px var(--color-shadow);
+  --shadow-md: 0 6px 20px var(--color-shadow);
+  --shadow-lg: 0 12px 40px var(--color-shadow);
+
+  /* Z-index */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-nav: 30;
+  --z-modal: 40;
+  --z-toast: 50;
 }
 
 /* -------------------------
-   Light Theme
+   Colorful Contemporary Palette
+   (Working colors — subject to refinement)
 ------------------------- */
 
 [data-theme="light"] {
-  --color-background: #f6f3ee;
+  --color-background: #faf9f5;
   --color-surface: #ffffff;
-  --color-surface-soft: #eeeae3;
+  --color-surface-soft: #f3f1ec;
 
-  --color-text: #29272a;
-  --color-text-secondary: #6f6a6b;
-  --color-text-muted: #999294;
+  --color-text: #282b35;
+  --color-text-secondary: #5c6070;
+  --color-text-muted: #8e92a3;
 
-  --color-border: #e5dfd9;
+  --color-border: #e8e6e0;
 
-  --color-primary: #914f68;
-  --color-primary-soft: #ead8df;
+  --color-primary: #36a89b;
+  --color-primary-soft: #d9f0ed;
 
-  --color-accent: #d47b62;
-  --color-accent-soft: #f2ddd6;
+  --color-accent: #f28c83;
+  --color-accent-soft: #fde4e1;
 
-  --color-sage: #71806c;
-  --color-sage-soft: #dfe5dc;
+  --color-lavender: #ad98df;
+  --color-lavender-soft: #ece5f9;
 
-  --color-blue: #667b96;
-  --color-blue-soft: #dce3eb;
+  --color-gold: #e8a83c;
+  --color-gold-soft: #faf0d9;
 
-  --color-shadow: rgba(41, 39, 42, 0.08);
+  --color-success: #4caf7d;
+  --color-success-soft: #dcf0e5;
+
+  --color-warning: #e8943c;
+  --color-warning-soft: #faf0dd;
+
+  --color-error: #e06c6c;
+  --color-error-soft: #fadcdc;
+
+  --color-shadow: rgba(40, 43, 53, 0.08);
 }
 
-/* -------------------------
-   Dark Theme
-------------------------- */
-
 [data-theme="dark"] {
-  --color-background: #1d1c20;
-  --color-surface: #28262b;
-  --color-surface-soft: #333036;
+  --color-background: #1e1f26;
+  --color-surface: #2a2b33;
+  --color-surface-soft: #35363f;
 
-  --color-text: #f3efeb;
-  --color-text-secondary: #b7afb2;
-  --color-text-muted: #817a7e;
+  --color-text: #f5f4f0;
+  --color-text-secondary: #b0b3c0;
+  --color-text-muted: #7c7f8d;
 
-  --color-border: #3b373d;
+  --color-border: #3a3b44;
 
-  --color-primary: #d18ba4;
-  --color-primary-soft: #49323d;
+  --color-primary: #4dbfb2;
+  --color-primary-soft: #1e3a36;
 
-  --color-accent: #df947d;
-  --color-accent-soft: #4a342e;
+  --color-accent: #f5a49e;
+  --color-accent-soft: #3d2a28;
 
-  --color-sage: #9baa94;
-  --color-sage-soft: #354035;
+  --color-lavender: #c0b0e8;
+  --color-lavender-soft: #322d42;
 
-  --color-blue: #91a8c4;
-  --color-blue-soft: #303b49;
+  --color-gold: #f0bc5c;
+  --color-gold-soft: #3d3420;
 
-  --color-shadow: rgba(0, 0, 0, 0.25);
+  --color-success: #62c493;
+  --color-success-soft: #1e3529;
+
+  --color-warning: #f0a85c;
+  --color-warning-soft: #3d3020;
+
+  --color-error: #e88888;
+  --color-error-soft: #3d2626;
+
+  --color-shadow: rgba(0, 0, 0, 0.3);
 }

@@ -1,0 +1,67 @@
+.grace-mood-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.grace-mood-chip:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-text-muted);
+}
+
+.grace-mood-chip:active {
+  transform: scale(0.96);
+}
+
+.grace-mood-chip-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Selected states per color */
+.grace-mood-chip--selected.grace-mood-chip--primary {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.grace-mood-chip--selected.grace-mood-chip--accent {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+
+.grace-mood-chip--selected.grace-mood-chip--lavender {
+  background: var(--color-lavender);
+  color: #fff;
+  border-color: var(--color-lavender);
+}
+
+.grace-mood-chip--selected.grace-mood-chip--gold {
+  background: var(--color-gold);
+  color: #fff;
+  border-color: var(--color-gold);
+}
+
+.grace-mood-chip--selected.grace-mood-chip--gold {
+  background: var(--color-gold);
+  color: #fff;
+  border-color: var(--color-gold);
+}

@@ -1,0 +1,90 @@
+.grace-stat-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.grace-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.grace-stat-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.grace-stat-card--primary .grace-stat-card-icon {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.grace-stat-card--accent .grace-stat-card-icon {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.grace-stat-card--lavender .grace-stat-card-icon {
+  background: var(--color-lavender-soft);
+  color: var(--color-lavender);
+}
+
+.grace-stat-card--gold .grace-stat-card-icon {
+  background: var(--color-gold-soft);
+  color: var(--color-gold);
+}
+
+.grace-stat-card--gold .grace-stat-card-icon {
+  background: var(--color-gold-soft);
+  color: var(--color-gold);
+}
+
+.grace-stat-card-content {
+  min-width: 0;
+}
+
+.grace-stat-card-label {
+  margin: 0;
+  font-size: var(--text-caption);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.grace-stat-card-value {
+  margin: 2px 0 0;
+  font-size: var(--text-h2);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+.grace-stat-card-trend {
+  margin: 4px 0 0;
+  font-size: var(--text-caption);
+  font-weight: 600;
+}
+
+.grace-stat-card-trend--up {
+  color: var(--color-success);
+}
+
+.grace-stat-card-trend--down {
+  color: var(--color-error);
+}
+
+.grace-stat-card-trend--neutral {
+  color: var(--color-text-muted);
+}

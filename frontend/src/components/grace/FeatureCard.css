@@ -1,0 +1,61 @@
+.grace-feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  cursor: pointer;
+}
+
+.grace-feature-card:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.grace-feature-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  font-size: 24px;
+  margin-bottom: var(--space-xs);
+}
+
+.grace-feature-card--primary .grace-feature-card-icon {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.grace-feature-card--accent .grace-feature-card-icon {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.grace-feature-card--lavender .grace-feature-card-icon {
+  background: var(--color-lavender-soft);
+  color: var(--color-lavender);
+}
+
+.grace-feature-card--gold .grace-feature-card-icon {
+  background: var(--color-gold-soft);
+  color: var(--color-gold);
+}
+
+.grace-feature-card--gold .grace-feature-card-icon {
+  background: var(--color-gold-soft);
+  color: var(--color-gold);
+}
+
+.grace-feature-card-title {
+  margin: 0;
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.grace-feature-card-desc {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}

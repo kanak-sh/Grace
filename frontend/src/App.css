@@ -61,23 +61,57 @@
   padding: 28px 20px 48px;
 }
 
-/* Temporary page styling */
-
-.page-placeholder {
-  padding-top: 24px;
-}
-
-.page-placeholder h1 {
-  margin: 0 0 12px;
+/* Typography utilities */
+.grace-text-display {
   font-family: var(--font-display);
-  font-size: clamp(32px, 6vw, 48px);
+  font-size: var(--text-display);
   font-weight: 400;
   line-height: 1.1;
 }
 
-.page-placeholder p {
-  margin: 0;
-  color: var(--color-text-secondary);
+.grace-text-h1 {
+  font-family: var(--font-body);
+  font-size: var(--text-h1);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.grace-text-h2 {
+  font-family: var(--font-body);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.grace-text-h3 {
+  font-family: var(--font-body);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.grace-text-body {
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+.grace-text-body-sm {
+  font-size: var(--text-body-sm);
+  line-height: 1.5;
+}
+
+.grace-text-caption {
+  font-size: var(--text-caption);
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+
+.grace-text-label {
+  font-size: var(--text-label);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
 }
 
 /* Mobile navigation */
@@ -135,35 +169,7 @@
   color: var(--color-primary);
 }
 
-/* More page */
 
-.more-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 28px;
-}
-
-.more-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-
-  min-height: 110px;
-  padding: 22px;
-
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 6px 20px var(--color-shadow);
-
-  transition: transform var(--transition-fast);
-}
-
-.more-card:hover {
-  transform: translateY(-3px);
-}
 
 /* Tablet: compact sidebar */
 
@@ -212,9 +218,6 @@
     padding: 12px 4px;
   }
 
-  .more-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
 /* Desktop: wider sidebar */
@@ -253,9 +256,6 @@
     padding: 48px;
   }
 
-  .more-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
 }
 
 /* Accessibility */
