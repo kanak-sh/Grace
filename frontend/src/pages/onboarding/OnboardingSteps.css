@@ -1,0 +1,151 @@
+/* Shared styles for all onboarding step pages */
+
+.onboarding-step {
+  display: flex;
+  flex-direction: column;
+}
+
+.onboarding-eyebrow {
+  display: inline-block;
+
+  margin-bottom: 12px;
+
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: var(--color-primary);
+}
+
+.onboarding-heading {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 48px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.onboarding-subtext {
+  margin: 14px 0 0;
+
+  font-size: 16px;
+  line-height: 1.6;
+
+  color: var(--color-text-secondary);
+}
+
+.onboarding-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  margin-top: 12px;
+}
+
+.onboarding-chip-group--large {
+  margin-top: 32px;
+}
+
+.onboarding-chip {
+  padding: 10px 18px;
+
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.onboarding-chip:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-text-muted);
+}
+
+.onboarding-chip:active {
+  transform: scale(0.96);
+}
+
+.onboarding-chip--selected {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.onboarding-chip:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.onboarding-chip--interactive {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 12px 20px;
+}
+
+.onboarding-chip-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.onboarding-chip--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.onboarding-chip--disabled:hover {
+  transform: none;
+  border-color: var(--color-border);
+}
+
+.onboarding-hint {
+  margin: 16px 0 0;
+
+  font-size: var(--text-body-sm);
+  color: var(--color-text-muted);
+}
+
+.onboarding-field {
+  margin-top: 36px;
+}
+
+.onboarding-field-label {
+  display: block;
+
+  font-size: var(--text-body);
+  font-weight: 700;
+
+  margin-bottom: 6px;
+}
+
+.onboarding-field-hint {
+  margin: 0 0 12px;
+
+  font-size: var(--text-body-sm);
+  line-height: 1.5;
+
+  color: var(--color-text-muted);
+}
+
+.onboarding-form {
+  margin-top: 32px;
+}
+
+.onboarding-actions {
+  margin-top: 48px;
+}

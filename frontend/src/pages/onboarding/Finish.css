@@ -1,0 +1,58 @@
+/* Finish step */
+
+.onboarding-finish {
+  align-items: center;
+  text-align: center;
+}
+
+.onboarding-finish-icon {
+  display: grid;
+  place-items: center;
+
+  width: 72px;
+  height: 72px;
+
+  font-size: 32px;
+
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  border-radius: var(--radius-full);
+
+  margin-bottom: 24px;
+}
+
+.onboarding-summary {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  margin-top: 32px;
+  padding: 24px;
+
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.onboarding-summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.onboarding-summary-label {
+  font-size: var(--text-body-sm);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.onboarding-summary-value {
+  font-size: var(--text-body-sm);
+  color: var(--color-text);
+  text-align: right;
+}

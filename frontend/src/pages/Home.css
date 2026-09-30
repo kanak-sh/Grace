@@ -32,6 +32,43 @@
   line-height: 1.1;
 }
 
+.home-greeting-sparkle {
+  color: var(--color-primary);
+}
+
+/* Personal snapshot */
+.home-personal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.home-personal-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+
+  padding: var(--space-lg);
+
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.home-personal-label {
+  font-size: var(--text-body-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.home-personal-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
 /* Sections */
 .home-section {
   display: flex;

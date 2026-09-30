@@ -1,0 +1,18 @@
+/* Interests step — reuses onboarding-step styles from AboutYou.css */
+
+.onboarding-chip-group--large {
+  margin-top: 32px;
+}
+
+.onboarding-chip--interactive {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 12px 20px;
+}
+
+.onboarding-chip-icon {
+  font-size: 18px;
+  line-height: 1;
+}

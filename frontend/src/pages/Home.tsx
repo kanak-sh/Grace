@@ -9,6 +9,7 @@ import StatCard from '../components/grace/StatCard'
 import FeatureCard from '../components/grace/FeatureCard'
 import MoodChip from '../components/grace/MoodChip'
 import EmptyState from '../components/grace/EmptyState'
+import { useProfile } from '../hooks/useProfile'
 import './Home.css'
 
 const moods = [
@@ -65,24 +66,31 @@ const features = [
   },
 ]
 
+function getGreeting() {
+  const hour = new Date().getHours()
+  if (hour < 12) return 'Good morning'
+  if (hour < 17) return 'Good afternoon'
+  return 'Good evening'
+}
+
 export default function Home() {
   const [selectedMood, setSelectedMood] = useState<string | null>(null)
+  const profile = useProfile()
 
-  const getGreeting = () => {
-    const hour = new Date().getHours()
-    if (hour < 12) return 'Good morning'
-    if (hour < 17) return 'Good afternoon'
-    return 'Good evening'
-  }
+  const displayName = profile?.name || 'there'
+  const interests = profile?.interests || []
+  const hobbies = profile?.hobbies || []
 
   return (
     <div className="home-page">
       {/* Greeting */}
       <div className="home-greeting">
-        <Avatar name="Grace User" size="lg" status="online" />
+        <Avatar name={displayName} size="lg" status="online" />
         <div className="home-greeting-text">
           <p className="home-greeting-time">{getGreeting()}</p>
-          <h1 className="home-greeting-name">Ready for today?</h1>
+          <h1 className="home-greeting-name">
+            Hey, {displayName} <span className="home-greeting-sparkle">✦</span>
+          </h1>
         </div>
       </div>
 
@@ -97,9 +105,46 @@ export default function Home() {
           </Button>
         }
       >
-        You've been consistently active this week — your sleep score improved
-        by 12%. Keep up the momentum with a short walk today.
+        {interests.length > 0 || hobbies.length > 0
+          ? `Based on what you told me, I think you'll have a great day. ${interests.length > 0 ? `Your interests in ${interests.slice(0, 3).join(', ')} keep expanding.` : ''} ${hobbies.length > 0 ? `And with ${hobbies.slice(0, 2).join(' and ')} in your free time, you've got a great balance.` : ''}`
+          : "You've been consistently active this week — your sleep score improved by 12%. Keep up the momentum with a short walk today."}
       </AIInsightCard>
+
+      {/* Personalized sections */}
+      {(interests.length > 0 || hobbies.length > 0) && (
+        <section className="home-section">
+          <SectionHeader
+            title="Based on what you told me…"
+            subtitle="Your personal snapshot"
+          />
+          <div className="home-personal">
+            {interests.length > 0 && (
+              <div className="home-personal-card">
+                <span className="home-personal-label">Your interests</span>
+                <div className="home-personal-chips">
+                  {interests.map((interest) => (
+                    <Badge key={interest} variant="primary">
+                      {interest}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+            {hobbies.length > 0 && (
+              <div className="home-personal-card">
+                <span className="home-personal-label">Your hobbies</span>
+                <div className="home-personal-chips">
+                  {hobbies.map((hobby) => (
+                    <Badge key={hobby} variant="lavender">
+                      {hobby}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Stats */}
       <section className="home-section">
