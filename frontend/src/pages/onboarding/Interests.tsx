@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import OnboardingLayout from '../../components/onboarding/OnboardingLayout'
-import { Button } from '../../components/ui'
+import { Button, Input } from '../../components/ui'
 import { useOnboarding } from '../../contexts/OnboardingContext'
 import './OnboardingSteps.css'
 import './Interests.css'
@@ -26,10 +27,26 @@ const INTERESTS = [
 
 export default function Interests() {
   const navigate = useNavigate()
+  const [otherOpen, setOtherOpen] = useState(false)
+  const [otherText, setOtherText] = useState('')
   const { data, dispatch } = useOnboarding()
 
   function handleToggle(value: string) {
     dispatch({ type: 'TOGGLE_INTEREST', payload: value })
+  }
+
+  const knownValues = INTERESTS.map((i) => i.value)
+  const customInterests = data.interests.filter((i) => !knownValues.includes(i))
+
+  function handleAddOther() {
+    const value = otherText.trim()
+    if (!value) return
+    const key = value.toLowerCase()
+    if (!data.interests.includes(key) && !data.interests.includes(value)) {
+      dispatch({ type: 'TOGGLE_INTEREST', payload: value })
+    }
+    setOtherText('')
+    setOtherOpen(false)
   }
 
   function handleContinue() {
@@ -63,13 +80,61 @@ export default function Interests() {
               onClick={() => handleToggle(interest.value)}
               aria-pressed={data.interests.includes(interest.value)}
             >
-              <span className="onboarding-chip-icon" aria-hidden="true">
-                {interest.icon}
-              </span>
               {interest.label}
             </button>
           ))}
+
+          <button
+            type="button"
+            className={[
+              'onboarding-chip onboarding-chip--interactive',
+              otherOpen ? 'onboarding-chip--selected' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            onClick={() => setOtherOpen((open) => !open)}
+            aria-pressed={otherOpen}
+          >
+            Other
+          </button>
         </div>
+
+        {customInterests.length > 0 && (
+          <div className="onboarding-chip-group onboarding-chip-group--large">
+            {customInterests.map((interest) => (
+              <button
+                key={interest}
+                type="button"
+                className="onboarding-chip onboarding-chip--selected"
+                onClick={() => handleToggle(interest)}
+                aria-pressed="true"
+              >
+                {interest} ✕
+              </button>
+            ))}
+          </div>
+        )}
+
+        {otherOpen && (
+          <div className="onboarding-field" style={{ marginTop: 'var(--space-md)' }}>
+            <Input
+              label="Your interest"
+              placeholder="e.g. Bird watching"
+              value={otherText}
+              onChange={(e) => setOtherText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault()
+                  handleAddOther()
+                }
+              }}
+              autoFocus
+            />
+            <Button variant="secondary" size="sm" onClick={handleAddOther} disabled={!otherText.trim()}>
+              Add interest
+            </Button>
+          </div>
+        )}
 
         <div className="onboarding-actions">
           <Button

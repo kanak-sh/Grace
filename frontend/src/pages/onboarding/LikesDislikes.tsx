@@ -51,7 +51,7 @@ export default function LikesDislikes() {
   }
 
   function handleContinue() {
-    navigate('/onboarding/preferences')
+    navigate('/onboarding/personalization')
   }
 
   return (

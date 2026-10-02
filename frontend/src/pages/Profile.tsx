@@ -1,11 +1,14 @@
 import SectionHeader from '../components/grace/SectionHeader'
 import Avatar from '../components/ui/Avatar'
+import { getUserAvatar } from '../services/avatarImages'
+import { useProfile } from '../hooks/useProfile'
 import Badge from '../components/ui/Badge'
 import Card from '../components/ui/Card'
 import Input from '../components/ui/Input'
 import Button from '../components/ui/Button'
 
 export default function Profile() {
+  const profile = useProfile()
   return (
     <div>
       <SectionHeader
@@ -13,7 +16,7 @@ export default function Profile() {
         subtitle="Make Grace your own"
       />
       <Card padding="lg" style={{ marginBottom: 'var(--space-xl)', display: 'flex', alignItems: 'center', gap: 'var(--space-lg)' }}>
-        <Avatar name="Grace User" size="xl" status="online" />
+        <Avatar name="Grace User" size="xl" status="online" src={getUserAvatar(profile?.characterPreference)} zoom={1.12} />
         <div>
           <h2 style={{ margin: 0, fontSize: 'var(--text-h2)' }}>Grace User</h2>
           <p style={{ margin: '4px 0 0', color: 'var(--color-text-secondary)' }}>grace@example.com</p>

@@ -22,7 +22,89 @@
   font-family: var(--font-display);
   font-size: 32px;
   line-height: 1;
+  color: var(--color-text);
+}
+
+.app-logo-dot {
   color: var(--color-primary);
+}
+
+.bell-button {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-surface);
+  box-shadow: 0 6px 18px var(--color-shadow);
+  font-size: 20px;
+  transition: transform var(--transition-fast);
+}
+
+.bell-button:hover {
+  transform: translateY(-2px);
+}
+
+/* Decorative pastel blobs */
+.app-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  filter: blur(60px);
+  opacity: 0.55;
+  border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+}
+
+.blob-teal {
+  width: 420px;
+  height: 420px;
+  background: #bfe8df;
+  top: -120px;
+  left: -140px;
+}
+
+.blob-lavender-left {
+  width: 360px;
+  height: 360px;
+  background: #e2d6f7;
+  top: 160px;
+  left: -160px;
+}
+
+.blob-blue {
+  width: 440px;
+  height: 440px;
+  background: #cfdcea;
+  top: -100px;
+  right: -150px;
+}
+
+.blob-peach {
+  width: 400px;
+  height: 400px;
+  background: #f9dcc9;
+  bottom: -140px;
+  right: -120px;
+}
+
+@media (max-width: 640px) {
+  .blob {
+    opacity: 0.35;
+    transform: scale(0.6);
+  }
+}
+
+.app-header,
+.app-content {
+  position: relative;
+  z-index: 1;
 }
 
 .header-actions {
@@ -167,6 +249,77 @@
 
 .nav-item:hover {
   color: var(--color-primary);
+}
+
+/* Center Grace button (mobile) */
+.nav-grace {
+  position: absolute;
+  left: 50%;
+  top: -18px;
+  transform: translateX(-50%);
+  flex: none;
+  width: 60px;
+  height: 60px;
+  min-height: 60px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 12px;
+  box-shadow: 0 8px 22px rgba(54, 168, 155, 0.45);
+  border: 4px solid var(--color-surface);
+}
+
+.nav-grace .nav-icon {
+  font-size: 24px;
+}
+
+.nav-grace .nav-label {
+  display: none;
+}
+
+.nav-grace.active,
+.nav-grace:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* Reserve space for the floating center button */
+.bottom-nav {
+  padding-top: 24px;
+}
+
+@media (min-width: 768px) {
+  .nav-grace {
+    position: static;
+    transform: none;
+    width: 100%;
+    height: auto;
+    min-height: 66px;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--color-text-secondary);
+    box-shadow: none;
+    border: none;
+    font-size: 10px;
+  }
+
+  .nav-grace .nav-icon {
+    font-size: 22px;
+  }
+
+  .nav-grace .nav-label {
+    display: block;
+  }
+
+  .nav-grace.active,
+  .nav-grace:hover {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+  }
+
+  .bottom-nav {
+    padding-top: 24px;
+  }
 }
 
 

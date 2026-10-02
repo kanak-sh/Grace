@@ -4,12 +4,21 @@ import BottomNav from './BottomNav'
 import { useTheme } from '../theme/ThemeContext'
 
 export default function AppLayout() {
-  const { theme, toggleTheme } = useTheme()
+  const { resolvedTheme, toggleTheme } = useTheme()
 
   return (
     <div className="app-shell">
+      <div className="app-blobs" aria-hidden="true">
+        <span className="blob blob-teal" />
+        <span className="blob blob-lavender-left" />
+        <span className="blob blob-blue" />
+        <span className="blob blob-peach" />
+      </div>
+
       <header className="app-header">
-        <span className="app-logo">grace.</span>
+        <span className="app-logo">
+          grace<span className="app-logo-dot">.</span>
+        </span>
 
         <div className="header-actions">
           <span className="app-header-label">
@@ -21,12 +30,16 @@ export default function AppLayout() {
             type="button"
             onClick={toggleTheme}
             aria-label={
-              theme === 'light'
+              resolvedTheme === 'light'
                 ? 'Switch to dark mode'
                 : 'Switch to light mode'
             }
           >
-            {theme === 'light' ? '☾' : '☀'}
+            {resolvedTheme === 'light' ? '☾' : '☀'}
+          </button>
+
+          <button className="bell-button" type="button" aria-label="Notifications">
+            🔔
           </button>
         </div>
       </header>

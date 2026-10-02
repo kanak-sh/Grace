@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './Avatar.css'
 
-type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
+type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 
 type AvatarProps = {
   src?: string
@@ -9,6 +9,8 @@ type AvatarProps = {
   name: string
   size?: AvatarSize
   status?: 'online' | 'away' | 'offline'
+  /** Scale the image inside the circular mask (use ~1.1 for images with a framed circle) */
+  zoom?: number
 }
 
 function getInitials(name: string): string {
@@ -25,6 +27,7 @@ const sizeMap: Record<AvatarSize, number> = {
   md: 48,
   lg: 64,
   xl: 96,
+  '2xl': 128,
 }
 
 export default function Avatar({
@@ -33,6 +36,7 @@ export default function Avatar({
   name,
   size = 'md',
   status,
+  zoom,
 }: AvatarProps) {
   const [imgError, setImgError] = useState(false)
   const px = sizeMap[size]
@@ -50,6 +54,7 @@ export default function Avatar({
           src={src}
           alt={alt || name}
           className="grace-avatar-img"
+          style={zoom ? { transform: `scale(${zoom})` } : undefined}
           onError={() => setImgError(true)}
         />
       ) : (

@@ -14,6 +14,7 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+  clip-path: circle(50% at 50% 50%);
 }
 
 .grace-avatar-fallback {
@@ -34,6 +35,7 @@
 .grace-avatar[style*="48px"] .grace-avatar-fallback { font-size: 16px; }
 .grace-avatar[style*="64px"] .grace-avatar-fallback { font-size: 20px; }
 .grace-avatar[style*="96px"] .grace-avatar-fallback { font-size: 28px; }
+.grace-avatar[style*="128px"] .grace-avatar-fallback { font-size: 40px; }
 
 /* Status indicator */
 .grace-avatar-status {

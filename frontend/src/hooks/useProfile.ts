@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react'
-import { profileStorage, type ProfileData } from '../services/profileStorage'
+import { type ProfileData } from '../services/profileStorage'
 
 let cachedProfile: ProfileData | null = null
 let lastRaw: string | null = null

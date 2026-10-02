@@ -4,11 +4,13 @@ import './Input.css'
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string
   error?: string
+  hint?: string
 }
 
 export default function Input({
   label,
   error,
+  hint,
   className = '',
   id,
   ...props
@@ -34,6 +36,7 @@ export default function Input({
         {...props}
       />
       {error && <p className="grace-input-error">{error}</p>}
+      {!error && hint && <p className="grace-input-hint">{hint}</p>}
     </div>
   )
 }

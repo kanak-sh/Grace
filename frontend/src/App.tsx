@@ -17,7 +17,6 @@ import AboutYou from './pages/onboarding/AboutYou'
 import Interests from './pages/onboarding/Interests'
 import HobbiesOnboarding from './pages/onboarding/Hobbies'
 import LikesDislikes from './pages/onboarding/LikesDislikes'
-import Preferences from './pages/onboarding/Preferences'
 import Personalization from './pages/onboarding/Personalization'
 import Finish from './pages/onboarding/Finish'
 import OnboardingProviderWrapper from './components/onboarding/OnboardingProvider'
@@ -34,7 +33,6 @@ export default function App() {
           <Route path="/onboarding/interests" element={<Interests />} />
           <Route path="/onboarding/hobbies" element={<HobbiesOnboarding />} />
           <Route path="/onboarding/likes-dislikes" element={<LikesDislikes />} />
-          <Route path="/onboarding/preferences" element={<Preferences />} />
           <Route path="/onboarding/personalization" element={<Personalization />} />
           <Route path="/onboarding/finish" element={<Finish />} />
         </Route>

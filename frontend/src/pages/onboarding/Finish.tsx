@@ -20,7 +20,7 @@ export default function Finish() {
     data.character === 'river' ? 'River' : 'Grace'
 
   return (
-    <OnboardingLayout step={7} showBack={false}>
+    <OnboardingLayout step={6} showBack={false}>
       <div className="onboarding-step onboarding-finish">
         <div className="onboarding-finish-icon" aria-hidden="true">
           ✦

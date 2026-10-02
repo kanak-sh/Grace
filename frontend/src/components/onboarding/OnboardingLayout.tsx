@@ -9,7 +9,6 @@ const STEPS = [
   'Interests',
   'Hobbies',
   'Likes & Dislikes',
-  'Preferences',
   'Personalization',
   'Finish',
 ]

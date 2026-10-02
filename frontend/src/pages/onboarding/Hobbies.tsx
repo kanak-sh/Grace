@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import OnboardingLayout from '../../components/onboarding/OnboardingLayout'
-import { Button } from '../../components/ui'
+import { Button, Input } from '../../components/ui'
 import { useOnboarding } from '../../contexts/OnboardingContext'
 import './OnboardingSteps.css'
 import './Hobbies.css'
@@ -24,6 +25,8 @@ const MIN_HOBBIES = 1
 const MAX_HOBBIES = 4
 
 export default function Hobbies() {
+  const [otherOpen, setOtherOpen] = useState(false)
+  const [otherText, setOtherText] = useState('')
   const navigate = useNavigate()
   const { data, dispatch } = useOnboarding()
 
@@ -36,6 +39,20 @@ export default function Hobbies() {
   }
 
   const canContinue = data.hobbies.length >= MIN_HOBBIES
+
+  const knownValues = HOBBIES.map((h) => h.value)
+  const customHobbies = data.hobbies.filter((h) => !knownValues.includes(h))
+
+  function handleAddOther() {
+    const value = otherText.trim()
+    if (!value || data.hobbies.length >= MAX_HOBBIES) return
+    const isDuplicate = data.hobbies.some((h) => h.toLowerCase() === value.toLowerCase())
+    if (!isDuplicate) {
+      dispatch({ type: 'TOGGLE_HOBBY', payload: value })
+    }
+    setOtherText('')
+    setOtherOpen(false)
+  }
 
   function handleContinue() {
     if (!canContinue) return
@@ -75,14 +92,69 @@ export default function Hobbies() {
                 disabled={isDisabled}
                 aria-pressed={isSelected}
               >
-                <span className="onboarding-chip-icon" aria-hidden="true">
-                  {hobby.icon}
-                </span>
                 {hobby.label}
               </button>
             )
           })}
+
+          <button
+            type="button"
+            className={[
+              'onboarding-chip onboarding-chip--interactive',
+              otherOpen ? 'onboarding-chip--selected' : '',
+              !otherOpen && data.hobbies.length >= MAX_HOBBIES ? 'onboarding-chip--disabled' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            onClick={() => setOtherOpen((open) => !open)}
+            disabled={!otherOpen && data.hobbies.length >= MAX_HOBBIES}
+            aria-pressed={otherOpen}
+          >
+            Other
+          </button>
         </div>
+
+        {customHobbies.length > 0 && (
+          <div className="onboarding-chip-group onboarding-chip-group--large">
+            {customHobbies.map((hobby) => (
+              <button
+                key={hobby}
+                type="button"
+                className="onboarding-chip onboarding-chip--selected"
+                onClick={() => handleToggle(hobby)}
+                aria-pressed="true"
+              >
+                {hobby} ✕
+              </button>
+            ))}
+          </div>
+        )}
+
+        {otherOpen && (
+          <div className="onboarding-field" style={{ marginTop: 'var(--space-md)' }}>
+            <Input
+              label="Your hobby"
+              placeholder="e.g. Bird watching"
+              value={otherText}
+              onChange={(e) => setOtherText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault()
+                  handleAddOther()
+                }
+              }}
+              autoFocus
+            />
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={handleAddOther}
+              disabled={!otherText.trim() || data.hobbies.length >= MAX_HOBBIES}
+            >
+              Add hobby
+            </Button>
+          </div>
+        )}
 
         <p className="onboarding-hint">
           {data.hobbies.length === 0

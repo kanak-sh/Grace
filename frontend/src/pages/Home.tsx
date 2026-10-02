@@ -1,70 +1,44 @@
-import { useState } from 'react'
 import { Link } from 'react-router'
 import Avatar from '../components/ui/Avatar'
-import Button from '../components/ui/Button'
-import Badge from '../components/ui/Badge'
-import SectionHeader from '../components/grace/SectionHeader'
-import AIInsightCard from '../components/grace/AIInsightCard'
-import StatCard from '../components/grace/StatCard'
-import FeatureCard from '../components/grace/FeatureCard'
-import MoodChip from '../components/grace/MoodChip'
-import EmptyState from '../components/grace/EmptyState'
 import { useProfile } from '../hooks/useProfile'
+import { useMood } from '../hooks/useMood'
+import { getUserAvatar, getCompanionImage } from '../services/avatarImages'
+import { saveMood } from '../services/moodStorage'
+import { useHealth } from '../hooks/useHealth'
+import { formatSleep } from '../services/healthData'
 import './Home.css'
 
 const moods = [
-  { label: 'Happy', icon: '☀', color: 'gold' as const },
-  { label: 'Calm', icon: '☁', color: 'lavender' as const },
-  { label: 'Energetic', icon: '⚡', color: 'accent' as const },
-  { label: 'Focused', icon: '◎', color: 'lavender' as const },
-  { label: 'Grateful', icon: '♡', color: 'primary' as const },
-  { label: 'Tired', icon: '☾', color: 'lavender' as const },
-]
+  { label: 'Happy', icon: '😊', tone: 'peach' },
+  { label: 'Calm', icon: '😌', tone: 'lavender' },
+  { label: 'Energetic', icon: '⚡', tone: 'yellow' },
+  { label: 'Productive', icon: '📈', tone: 'green' },
+  { label: 'Tired', icon: '😴', tone: 'blue' },
+] as const
 
-const features = [
-  {
-    icon: '♡',
-    title: 'Health',
-    description: 'Track your daily activity, sleep, and wellness habits.',
-    color: 'primary' as const,
-    path: '/health',
-  },
-  {
-    icon: '✿',
-    title: 'Hobbies',
-    description: 'Discover and explore new passions tailored to you.',
-    color: 'lavender' as const,
-    path: '/hobbies',
-  },
-  {
-    icon: '▤',
-    title: 'Notes',
-    description: 'Capture thoughts, ideas, and moments that matter.',
-    color: 'lavender' as const,
-    path: '/notes',
-  },
-  {
-    icon: '✦',
-    title: 'Create',
-    description: 'Your creative space for projects and inspiration.',
-    color: 'accent' as const,
-    path: '/create',
-  },
-  {
-    icon: '♪',
-    title: 'Music',
-    description: 'Curated playlists that match your mood and moments.',
-    color: 'gold' as const,
-    path: '/music',
-  },
-  {
-    icon: '✦',
-    title: 'Grace AI',
-    description: 'Your personal companion, always here to listen.',
-    color: 'primary' as const,
-    path: '/companion',
-  },
-]
+const exploreItems = [
+  { icon: '🎨', title: 'Hobbies', tone: 'peach', path: '/hobbies' },
+  { icon: '📝', title: 'Notes', tone: 'lavender', path: '/notes' },
+  { icon: '🎵', title: 'Music', tone: 'blue', path: '/music' },
+  { icon: '✨', title: 'Create', tone: 'yellow', path: '/create' },
+] as const
+
+const tagRoutes: Record<string, string> = {
+  music: '/music',
+  notes: '/notes',
+  create: '/create',
+  art: '/create',
+  crochet: '/create',
+  reading: '/notes',
+  yoga: '/hobbies',
+  travel: '/hobbies',
+  technology: '/hobbies',
+  hobbies: '/hobbies',
+}
+
+function routeForTag(tag: string): string {
+  return tagRoutes[tag.toLowerCase()] ?? '/hobbies'
+}
 
 function getGreeting() {
   const hour = new Date().getHours()
@@ -74,179 +48,191 @@ function getGreeting() {
 }
 
 export default function Home() {
-  const [selectedMood, setSelectedMood] = useState<string | null>(null)
+  const selectedMood = useMood()
   const profile = useProfile()
+  const health = useHealth()
 
-  const displayName = profile?.name || 'there'
-  const interests = profile?.interests || []
-  const hobbies = profile?.hobbies || []
+  const displayName = profile?.name || 'Kanak'
+  const interests = profile?.interests?.length
+    ? profile.interests
+    : ['Music', 'Art', 'Travel', 'Technology']
+  const hobbies = profile?.hobbies?.length
+    ? profile.hobbies
+    : ['Reading', 'Yoga', 'Crochet']
+
+  const dayStats = [
+    { icon: '👟', value: health.today.steps.toLocaleString(), label: 'steps', tone: 'peach' },
+    { icon: '🌙', value: formatSleep(health.today.sleepMinutes), label: 'sleep', tone: 'lavender' },
+    { icon: '💧', value: `${health.today.waterGlasses}/${health.goals.waterGlasses}`, label: 'glasses', tone: 'blue' },
+    { icon: '❤️', value: String(health.today.heartRate), label: 'bpm', tone: 'rose' },
+  ] as const
+
+  const today = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  })
 
   return (
     <div className="home-page">
       {/* Greeting */}
-      <div className="home-greeting">
-        <Avatar name={displayName} size="lg" status="online" />
+      <section className="home-greeting">
+        <div className="home-greeting-avatar">
+          <Avatar name={displayName} size="2xl" status="online" src={getUserAvatar(profile?.characterPreference)} alt={`${displayName} avatar`} zoom={1.12} />
+        </div>
         <div className="home-greeting-text">
-          <p className="home-greeting-time">{getGreeting()}</p>
+          <p className="home-greeting-date">{today}</p>
           <h1 className="home-greeting-name">
             Hey, {displayName} <span className="home-greeting-sparkle">✦</span>
           </h1>
+          <p className="home-greeting-time">{getGreeting()}</p>
         </div>
-      </div>
-
-      {/* AI Insight */}
-      <AIInsightCard
-        icon="✦"
-        title="Your daily insight"
-        mood="positive"
-        action={
-          <Button variant="ghost" size="sm">
-            View all insights
-          </Button>
-        }
-      >
-        {interests.length > 0 || hobbies.length > 0
-          ? `Based on what you told me, I think you'll have a great day. ${interests.length > 0 ? `Your interests in ${interests.slice(0, 3).join(', ')} keep expanding.` : ''} ${hobbies.length > 0 ? `And with ${hobbies.slice(0, 2).join(' and ')} in your free time, you've got a great balance.` : ''}`
-          : "You've been consistently active this week — your sleep score improved by 12%. Keep up the momentum with a short walk today."}
-      </AIInsightCard>
-
-      {/* Personalized sections */}
-      {(interests.length > 0 || hobbies.length > 0) && (
-        <section className="home-section">
-          <SectionHeader
-            title="Based on what you told me…"
-            subtitle="Your personal snapshot"
-          />
-          <div className="home-personal">
-            {interests.length > 0 && (
-              <div className="home-personal-card">
-                <span className="home-personal-label">Your interests</span>
-                <div className="home-personal-chips">
-                  {interests.map((interest) => (
-                    <Badge key={interest} variant="primary">
-                      {interest}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            )}
-            {hobbies.length > 0 && (
-              <div className="home-personal-card">
-                <span className="home-personal-label">Your hobbies</span>
-                <div className="home-personal-chips">
-                  {hobbies.map((hobby) => (
-                    <Badge key={hobby} variant="lavender">
-                      {hobby}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* Stats */}
-      <section className="home-section">
-        <SectionHeader
-          title="Today at a glance"
-          action={
-            <Badge variant="lavender" dot>
-              On track
-            </Badge>
-          }
-        />
-        <div className="home-stats">
-          <StatCard
-            icon="♡"
-            label="Heart rate"
-            value="72 bpm"
-            trend="Resting"
-            trendDirection="neutral"
-            color="primary"
-          />
-          <StatCard
-            icon="👟"
-            label="Steps"
-            value="6,842"
-            trend="+12% from yesterday"
-            trendDirection="up"
-            color="lavender"
-          />
-          <StatCard
-            icon="☾"
-            label="Sleep"
-            value="7h 24m"
-            trend="Good quality"
-            trendDirection="up"
-            color="gold"
-          />
-          <StatCard
-            icon="💧"
-            label="Water"
-            value="5 / 8"
-            trend="2 glasses to go"
-            trendDirection="neutral"
-            color="accent"
-          />
+        <div className="home-sunrise" aria-hidden="true">
+          <span className="sunrise-sun" />
+          <span className="sunrise-peach" />
+          <span className="sunrise-pink" />
         </div>
       </section>
 
-      {/* Mood check-in */}
-      <section className="home-section">
-        <SectionHeader
-          title="How are you feeling?"
-          subtitle="This helps Grace personalize your experience"
-        />
-        <div className="home-moods">
+      {/* Grace AI insight */}
+      <section className="ai-card">
+        <div className="ai-card-body">
+          <div className="ai-card-head">
+            <span className="ai-card-sparkle" aria-hidden="true">✦</span>
+            <div>
+              <p className="ai-card-title">Grace AI</p>
+              <p className="ai-card-subtitle">Your daily insight</p>
+            </div>
+          </div>
+          <p className="ai-card-message">
+            You've been exploring ideas and creativity lately. It's a great day
+            to keep that momentum going! ✨
+          </p>
+          <Link to="/companion" className="ai-card-cta">
+            Chat with Grace <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+        <div className="ai-card-art" aria-hidden="true">
+          <span className="ai-mascot-clip">
+            <img className="ai-mascot" src={getCompanionImage(profile?.characterPreference)} alt="" />
+          </span>
+        </div>
+      </section>
+
+      {/* Feeling */}
+      <section className="home-card">
+        <header className="home-card-head">
+          <h2>❤️ How are you feeling?</h2>
+          <button type="button" className="home-card-more">
+            Today ›
+          </button>
+        </header>
+        <div className="mood-grid">
           {moods.map((mood) => (
-            <MoodChip
+            <button
               key={mood.label}
-              label={mood.label}
-              icon={mood.icon}
-              color={mood.color}
-              selected={selectedMood === mood.label}
+              type="button"
+              className={`mood-tile mood-tile--${mood.tone} ${
+                selectedMood === mood.label ? 'is-selected' : ''
+              }`}
+              aria-pressed={selectedMood === mood.label}
               onClick={() =>
-                setSelectedMood(selectedMood === mood.label ? null : mood.label)
+                saveMood(selectedMood === mood.label ? null : mood.label)
               }
-            />
+            >
+              <span className="mood-tile-icon" aria-hidden="true">
+                {mood.icon}
+              </span>
+              <span>{mood.label}</span>
+            </button>
           ))}
         </div>
       </section>
 
-      {/* Features */}
-      <section className="home-section">
-        <SectionHeader
-          title="Explore Grace"
-          subtitle="Everything you need, in one personal space"
-        />
-        <div className="home-features">
-          {features.map((feature) => (
-            <Link to={feature.path} key={feature.path} className="home-feature-link">
-              <FeatureCard
-                icon={feature.icon}
-                title={feature.title}
-                description={feature.description}
-                color={feature.color}
-              />
+      {/* Your day */}
+      <section className="home-card">
+        <header className="home-card-head">
+          <h2>📊 Your day</h2>
+          <Link to="/health" className="ontrack-pill">🟢 On track ›</Link>
+        </header>
+        <div className="day-grid">
+          {dayStats.map((stat) => (
+            <Link
+              to="/health"
+              key={stat.label}
+              className={`day-tile day-tile--${stat.tone}`}
+            >
+              <span className="day-tile-icon" aria-hidden="true">
+                {stat.icon}
+              </span>
+              <p className="day-tile-value">{stat.value}</p>
+              <p className="day-tile-label">{stat.label}</p>
+              <span className="day-tile-chart" aria-hidden="true" />
             </Link>
           ))}
         </div>
       </section>
 
-      {/* Empty state demo */}
+      {/* Quick explore */}
       <section className="home-section">
-        <SectionHeader title="Recent notes" />
-        <EmptyState
-          icon="▤"
-          title="No notes yet"
-          description="Start capturing your thoughts and ideas — they'll appear here."
-          action={
-            <Button variant="primary" size="sm">
-              Create your first note
-            </Button>
-          }
-        />
+        <header className="section-head">
+          <h2>✦ Quick explore</h2>
+          <button type="button" className="home-card-more">
+            See all ›
+          </button>
+        </header>
+        <div className="explore-grid">
+          {exploreItems.map((item) => (
+            <Link
+              key={item.title}
+              to={item.path}
+              className={`explore-card explore-card--${item.tone}`}
+            >
+              <span className="explore-card-blob" aria-hidden="true" />
+              <span className="explore-card-icon" aria-hidden="true">
+                {item.icon}
+              </span>
+              <span className="explore-card-title">
+                {item.title} <span aria-hidden="true">›</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Personalization */}
+      <section className="home-section">
+        <header className="section-head">
+          <h2>👤 Based on what you told me…</h2>
+        </header>
+        <div className="personal-grid">
+          <div className="home-card">
+            <div className="personal-head">
+              <span>❤️ Your interests</span>
+              <Link to="/companion" className="home-card-more">›</Link>
+            </div>
+            <div className="tag-row">
+              {interests.map((interest) => (
+                <Link key={interest} to={routeForTag(interest)} className="tag tag--lavender">
+                  {interest}
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="home-card">
+            <div className="personal-head">
+              <span>🌱 Your hobbies</span>
+              <Link to="/hobbies" className="home-card-more">›</Link>
+            </div>
+            <div className="tag-row">
+              {hobbies.map((hobby) => (
+                <Link key={hobby} to={routeForTag(hobby)} className="tag tag--green">
+                  {hobby}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   )

@@ -1,121 +1,478 @@
 .home-page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xl);
+  gap: var(--space-lg);
 }
 
-/* Greeting */
+/* ---------- Greeting ---------- */
 .home-greeting {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-md);
+  padding: var(--space-sm) 0;
+}
+
+.home-greeting-avatar {
+  flex-shrink: 0;
+}
+
+.home-greeting-avatar .grace-avatar {
+  width: 112px !important;
+  height: 112px !important;
 }
 
 .home-greeting-text {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.home-greeting-time {
+.home-greeting-date {
   margin: 0;
   font-size: var(--text-body-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
 }
 
 .home-greeting-name {
   margin: 0;
   font-family: var(--font-display);
-  font-size: var(--text-h1);
+  font-size: clamp(26px, 5vw, 36px);
   font-weight: 400;
+  line-height: 1.15;
+  color: var(--color-text);
+}
+
+.home-greeting-sparkle {
+  color: var(--color-gold);
+}
+
+.home-greeting-time {
+  margin: 0;
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+}
+
+/* Decorative sunrise */
+.home-sunrise {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  width: 130px;
+  height: 130px;
+  pointer-events: none;
+}
+
+.sunrise-sun {
+  position: absolute;
+  top: 34px;
+  right: 40px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fbe7a9;
+}
+
+.sunrise-peach {
+  position: absolute;
+  top: 52px;
+  right: 56px;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: #f8d9c4;
+  opacity: 0.6;
+}
+
+.sunrise-pink {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f7c8cf;
+  opacity: 0.5;
+}
+
+/* ---------- Cards shared ---------- */
+.home-card {
+  background: var(--color-surface);
+  border-radius: 26px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(43, 51, 80, 0.06);
+}
+
+.home-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.home-card-head h2,
+.section-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+.home-card-more {
+  border: none;
+  background: transparent;
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+/* ---------- Grace AI card ---------- */
+.ai-card {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-md);
+  border-radius: 28px;
+  padding: 22px;
+  background: linear-gradient(135deg, #e7f5ef 0%, #f4efe3 100%);
+  box-shadow: 0 8px 30px rgba(43, 51, 80, 0.06);
+  overflow: hidden;
+}
+
+.ai-card-body {
+  flex: 1 1 65%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.ai-card-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.ai-card-sparkle {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--color-primary);
+  font-size: 16px;
+}
+
+.ai-card-title {
+  margin: 0;
+  font-size: var(--text-body);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.ai-card-subtitle {
+  margin: 0;
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+.ai-card-message {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.ai-card-cta {
+  align-self: flex-start;
+  margin-top: var(--space-xs);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: var(--text-body-sm);
+  box-shadow: 0 8px 20px rgba(54, 168, 155, 0.35);
+  transition: transform var(--transition-fast);
+}
+
+.ai-card-cta:hover {
+  transform: translateY(-2px);
+}
+
+.ai-card-art {
+  flex: 0 0 30%;
+  display: grid;
+  place-items: center;
+}
+
+.ai-mascot-clip {
+  display: block;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(43, 51, 80, 0.12);
+}
+
+.ai-mascot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
+}
+
+/* ---------- Feelings ---------- */
+.mood-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.mood-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1 1 28%;
+  min-width: 86px;
+  padding: 14px 8px;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  font-weight: 600;
+  font-size: var(--text-body-sm);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.mood-tile:hover {
+  transform: translateY(-2px);
+}
+
+.mood-tile.is-selected {
+  border-color: var(--color-primary);
+}
+
+.mood-tile-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.mood-tile--peach { background: #fde4e1; }
+.mood-tile--lavender { background: #ece5f9; }
+.mood-tile--yellow { background: #faf0d9; }
+.mood-tile--green { background: #dcf0e5; }
+.mood-tile--blue { background: #dceaf5; }
+
+/* ---------- Your day ---------- */
+.ontrack-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-success-soft);
+  color: var(--color-success);
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.day-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+a.day-tile {
+  text-decoration: none;
+  color: inherit;
+}
+
+.day-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 16px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.day-tile--peach { background: #fde4e1; }
+.day-tile--lavender { background: #ece5f9; }
+.day-tile--blue { background: #dceaf5; }
+.day-tile--rose { background: #fadcdc; }
+
+.day-tile-icon {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.day-tile-value {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
   color: var(--color-text);
   line-height: 1.1;
 }
 
-.home-greeting-sparkle {
-  color: var(--color-primary);
+.day-tile-label {
+  margin: 0;
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
 }
 
-/* Personal snapshot */
-.home-personal {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
+.day-tile-chart {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 26px;
+  height: 18px;
+  background:
+    linear-gradient(to top, rgba(43, 51, 80, 0.25) 0 30%, transparent 30%) 0 0 / 7px 100% no-repeat,
+    linear-gradient(to top, rgba(43, 51, 80, 0.25) 0 60%, transparent 60%) 9px 0 / 7px 100% no-repeat,
+    linear-gradient(to top, rgba(43, 51, 80, 0.25) 0 90%, transparent 90%) 18px 0 / 7px 100% no-repeat;
 }
 
-.home-personal-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-
-  padding: var(--space-lg);
-
-  background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-lg);
-}
-
-.home-personal-label {
-  font-size: var(--text-body-sm);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--color-text-muted);
-}
-
-.home-personal-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-}
-
-/* Sections */
+/* ---------- Quick explore ---------- */
 .home-section {
   display: flex;
   flex-direction: column;
-}
-
-/* Stats grid */
-.home-stats {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-md);
 }
 
-/* Mood chips */
-.home-moods {
+.section-head {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-sm);
 }
 
-/* Features grid */
-.home-features {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.explore-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-height: 118px;
+  padding: 18px;
+  border-radius: 22px;
+  overflow: hidden;
+  transition: transform var(--transition-fast);
+}
+
+.explore-card:hover {
+  transform: translateY(-3px);
+}
+
+.explore-card--peach { background: #fde4e1; }
+.explore-card--lavender { background: #ece5f9; }
+.explore-card--blue { background: #dceaf5; }
+.explore-card--yellow { background: #faf0d9; }
+
+.explore-card-blob {
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  width: 70px;
+  height: 70px;
+  border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.explore-card-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.explore-card-title {
+  margin-top: auto;
+  font-weight: 700;
+  font-size: var(--text-body);
+  color: var(--color-text);
+}
+
+/* ---------- Personalization ---------- */
+.personal-grid {
+  display: flex;
+  flex-direction: column;
   gap: var(--space-md);
 }
 
-.home-feature-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
+.personal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+  font-weight: 700;
+  font-size: var(--text-body);
+  color: var(--color-text);
 }
 
-/* Tablet */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+a.ontrack-pill {
+  text-decoration: none;
+}
+
+.tag {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.tag--lavender { background: #ece5f9; }
+.tag--green { background: #dcf0e5; }
+
+/* ---------- Responsive ---------- */
+@media (min-width: 520px) {
+  .day-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 @media (min-width: 768px) {
-  .home-stats {
+  .home-greeting-avatar .grace-avatar {
+    width: 136px !important;
+    height: 136px !important;
+  }
+
+  .explore-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .home-features {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .personal-grid {
+    flex-direction: row;
   }
-}
 
-/* Desktop */
-@media (min-width: 1200px) {
-  .home-features {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .personal-grid > * {
+    flex: 1;
+  }
+
+  .ai-mascot-clip {
+    width: 120px;
+    height: 120px;
   }
 }
