@@ -119,6 +119,152 @@
   cursor: pointer;
 }
 
+.hobby-chip-remove {
+  margin-left: 6px;
+  border: none;
+  background: transparent;
+  font-weight: 800;
+  color: inherit;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+}
+
+.hobby-add-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.hobby-add-option {
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-surface-soft, #e8e8f0);
+  background: var(--color-surface);
+  font-weight: 600;
+  font-size: var(--text-body-sm);
+  cursor: pointer;
+}
+
+.hobbies-tagline {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+.hobby-space {
+  border-radius: 26px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.hobby-space--peach { background: #fde4e1; }
+.hobby-space--lavender { background: #ece5f9; }
+.hobby-space--yellow { background: #faf0d9; }
+.hobby-space--mint { background: #dcf0e5; }
+.hobby-space--blue { background: #dceaf5; }
+
+.hobby-space-continue-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: var(--text-body);
+}
+
+.hobby-space-continue-meta {
+  margin: 2px 0 10px;
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+.hobby-space-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.hobby-space-actions .continue-percent {
+  margin: 0;
+}
+
+.hobby-section h4 {
+  margin: 0 0 8px;
+  font-size: var(--text-body-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+}
+
+.hobby-section ul {
+  list-style: none;
+  margin: 0 0 var(--space-md);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hobby-section li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 16px;
+  padding: 10px 14px;
+}
+
+.hobby-item-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: var(--text-body-sm);
+}
+
+.hobby-item-sub {
+  margin: 2px 0 0;
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+.hobby-save {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.hobby-save--on {
+  opacity: 1;
+}
+
+.recommend-reason {
+  margin: 0 0 12px;
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+@media (min-width: 640px) {
+  .hobby-space {
+    flex-direction: row;
+  }
+
+  .hobby-space-progress {
+    flex: 0 0 32%;
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: 18px;
+    padding: 16px;
+  }
+
+  .hobby-space-sections {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+}
+
 .hobbies-your-art {
   flex: 0 0 28%;
   display: grid;

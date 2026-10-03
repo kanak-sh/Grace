@@ -7,6 +7,7 @@ import Companion from './pages/Companion'
 import Health from './pages/Health'
 import Hobbies from './pages/Hobbies'
 import Notes from './pages/Notes'
+import NoteEditor from './pages/NoteEditor'
 import Create from './pages/Create'
 import Music from './pages/Music'
 import Profile from './pages/Profile'
@@ -43,6 +44,8 @@ export default function App() {
           <Route path="health" element={<Health />} />
           <Route path="hobbies" element={<Hobbies />} />
           <Route path="notes" element={<Notes />} />
+          <Route path="notes/new" element={<NoteEditor />} />
+          <Route path="notes/:id" element={<NoteEditor />} />
           <Route path="create" element={<Create />} />
           <Route path="music" element={<Music />} />
           <Route path="profile" element={<Profile />} />
