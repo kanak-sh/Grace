@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useMusic, type RecentSong } from '../hooks/useMusic'
+import { useProfile } from '../hooks/useProfile'
 import { type Playlist, type Song } from '../services/musicStorage'
+import musicBoy from '../assets/Music_boy.png'
 import './Music.css'
 
 const CHIPS = [
@@ -46,6 +48,7 @@ export default function Music() {
     songsByMood,
     songsByGenre,
   } = useMusic()
+  const profile = useProfile()
 
   const [chip, setChip] = useState<ChipId>('forYou')
   const [query, setQuery] = useState('')
@@ -133,7 +136,11 @@ export default function Music() {
             for you based on your mood and interests.
           </p>
         </div>
-        <span className="music-mascot" aria-hidden="true">🎧</span>
+        {profile?.characterPreference === 'male' ? (
+          <img className="music-mascot-img" src={musicBoy} alt="Music companion" />
+        ) : (
+          <span className="music-mascot" aria-hidden="true">🎧</span>
+        )}
       </section>
 
       <div className="music-chips" role="tablist" aria-label="Music views">

@@ -5,8 +5,9 @@ import FeatureCard from '../components/grace/FeatureCard'
 const destinations = [
   { icon: '✦', name: 'Create', path: '/create', color: 'accent' as const, description: 'Your creative space' },
   { icon: '♪', name: 'Music', path: '/music', color: 'gold' as const, description: 'Your music, your mood' },
-  { icon: '♡', name: 'Profile', path: '/profile', color: 'primary' as const, description: 'Make Grace your own' },
-  { icon: '⚙', name: 'Settings', path: '/settings', color: 'lavender' as const, description: 'Customize your experience' },
+  { icon: '♥', name: 'Health', path: '/health', color: 'primary' as const, description: 'Steps, sleep and mood' },
+  { icon: '♡', name: 'Profile', path: '/profile', color: 'lavender' as const, description: 'Make Grace your own' },
+  { icon: '⚙', name: 'Settings', path: '/settings', color: 'gold' as const, description: 'Customize your experience' },
 ]
 
 export default function More() {

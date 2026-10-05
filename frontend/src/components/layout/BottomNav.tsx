@@ -3,10 +3,10 @@ import { NavLink } from 'react-router'
 
 const navigation = [
   { label: 'Home', path: '/', icon: '⌂' },
-  { label: 'Companion', path: '/companion', icon: '💬' },
-  { label: 'Grace', path: '/companion', icon: '✦', center: true },
-  { label: 'Hobbies', path: '/hobbies', icon: '✿' },
-  { label: 'More', path: '/more', icon: '•••' },
+  { label: 'Companion', path: '/companion', icon: '✦' },
+  { label: 'Grace', path: '/companion', icon: '☺', center: true },
+  { label: 'Hobbies', path: '/hobbies', icon: '♡' },
+  { label: 'More', path: '/more', icon: '▦' },
 ]
 
 export default function BottomNav() {

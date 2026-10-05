@@ -1,32 +1,66 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { useHobbies } from '../hooks/useHobbies'
+import { useProfile } from '../hooks/useProfile'
 import { exploreCategories, getHobbyMeta, getHobbyLabel } from '../services/hobbyData'
+import hobbyBoy from '../assets/Hobby_boy.png'
+import {
+  BooksStackIcon,
+  MatIcon,
+  YarnNeedlesIcon,
+  PaletteIcon,
+  HeadphonesIcon,
+  PlayVideoIcon,
+  BooksTwoIcon,
+  BookmarkIcon,
+  RedSparkleIcon,
+  TealLeafIcon,
+  TealClockIcon,
+  OpenBookIcon,
+  AddCircleIcon,
+} from './hobbiesIcons'
 import './Hobbies.css'
 
 const quickResources = [
-  { icon: '🎓', title: 'Tutorials', subtitle: 'Learn step-by-step', path: '/hobbies', tone: 'peach' },
-  { icon: '📚', title: 'Free books', subtitle: 'By genre', path: '/notes', tone: 'yellow' },
-  { icon: '▶️', title: 'YouTube', subtitle: 'Curated for you', path: '/music', tone: 'blue' },
-  { icon: '🔖', title: 'Saved', subtitle: 'Your collection', path: '/notes', tone: 'lavender' },
+  { icon: <PlayVideoIcon />, title: 'Tutorials', subtitle: 'Learn step by step', path: '/hobbies', tone: 'peach' },
+  { icon: <BooksTwoIcon />, title: 'Free books', subtitle: 'By genre', path: '/hobbies', tone: 'lavender' },
+  { icon: <PlayVideoIcon />, title: 'YouTube links', subtitle: 'Curated for you', path: '/hobbies', tone: 'yellow' },
+  { icon: <BookmarkIcon />, title: 'Saved', subtitle: 'Your collection', path: '/hobbies', tone: 'mint' },
 ] as const
 
 export default function Hobbies() {
   const {
     hobbies,
-    maxHobbies,
     canAddMore,
     addableHobbies,
     addHobby,
     removeHobby,
-    content,
     continueItems,
     forYou,
-    savedIds,
-    advanceProgress,
-    toggleSaved,
   } = useHobbies()
+  const profile = useProfile()
   const [addOpen, setAddOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const q = searchQuery.trim().toLowerCase()
+
+  const visibleExplore = exploreCategories.filter((c) => !q || c.toLowerCase().includes(q))
+  const visibleForYou = forYou.filter(
+    (rec) => !q || rec.label.toLowerCase().includes(q) || rec.title.toLowerCase().includes(q),
+  )
+  const visibleResources = quickResources.filter(
+    (r) => !q || r.title.toLowerCase().includes(q) || r.subtitle.toLowerCase().includes(q),
+  )
+  const visibleContinue = continueItems.filter(
+    (item) => !q || item.label.toLowerCase().includes(q) || item.title.toLowerCase().includes(q),
+  )
+
+  const hasSearchResults =
+    visibleExplore.length > 0 ||
+    visibleForYou.length > 0 ||
+    visibleResources.length > 0 ||
+    visibleContinue.length > 0
 
   return (
     <div className="hobbies-page">
@@ -34,27 +68,51 @@ export default function Hobbies() {
       <header className="hobbies-head">
         <div>
           <h1>Hobbies</h1>
-          <p>Explore, learn and enjoy the things you love ❤️</p>
+          <p>Explore, learn and enjoy the things you love 💗</p>
         </div>
-        <button type="button" className="hobbies-search" aria-label="Search hobbies">
-          🔍
+        <button type="button" className="hobbies-search" aria-label="Search hobbies" onClick={() => setSearchOpen((o) => !o)}>
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" strokeWidth="2" />
+            <path d="M16.5 16.5L21 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
         </button>
       </header>
+
+      {searchOpen && (
+        <input
+          type="search"
+          className="hobbies-search-input"
+          placeholder="Search hobbies, resources…"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          aria-label="Search hobbies"
+          autoFocus
+        />
+      )}
+
+      {searchOpen && q && !hasSearchResults && <p className="hobbies-no-results">No results found.</p>}
 
       {/* Your hobbies */}
       <section className="hobbies-your">
         <div className="hobbies-your-text">
-          <h2>✦ Your hobbies</h2>
+          <h2><RedSparkleIcon /> Your hobbies</h2>
           <p>
             Here are the hobbies you're exploring. You can add, remove or
-            change them anytime (up to {maxHobbies}).
+            change them anytime.
           </p>
           <div className="hobbies-chips">
             {hobbies.map((hobby, i) => {
               const meta = getHobbyMeta(hobby, i)
               return (
                 <span key={hobby} className={`hobby-chip hobby-chip--${meta.tone}`}>
-                  <span aria-hidden="true">{meta.icon}</span> {getHobbyLabel(hobby)}
+                  {hobby.toLowerCase() === 'reading' ? (
+                    <OpenBookIcon />
+                  ) : hobby.toLowerCase() === 'crochet' ? (
+                    <YarnNeedlesIcon />
+                  ) : (
+                    <span aria-hidden="true">{meta.icon}</span>
+                  )}{' '}
+                  {getHobbyLabel(hobby)}
                   <button
                     type="button"
                     className="hobby-chip-remove"
@@ -68,7 +126,7 @@ export default function Hobbies() {
             })}
             {canAddMore && (
               <button type="button" className="hobby-add" onClick={() => setAddOpen((o) => !o)}>
-                + Add
+                <AddCircleIcon /> Add hobby
               </button>
             )}
           </div>
@@ -92,111 +150,44 @@ export default function Hobbies() {
           )}
         </div>
         <div className="hobbies-your-art" aria-hidden="true">
-          <span className="hobbies-mascot">🧘</span>
-        </div>
-      </section>
-
-      {/* Hobby spaces */}
-      {content.map((hobby) => {
-        const saved = savedIds[hobby.value] ?? []
-        const cont = continueItems.find((c) => c.hobby.toLowerCase() === hobby.value)
-        return (
-          <section key={hobby.value} className="hobbies-section">
-            <header className="hobbies-section-head">
-              <h2>
-                {hobby.icon} {hobby.label}
-              </h2>
-              <span className="hobbies-tagline">{hobby.tagline}</span>
-            </header>
-
-            <article className={`hobby-space hobby-space--${hobby.tone}`}>
-              <div className="hobby-space-progress">
-                <p className="hobby-space-continue-title">{cont?.title}</p>
-                <p className="hobby-space-continue-meta">{cont?.meta}</p>
-                <div className="continue-progress">
-                  <span style={{ width: `${cont?.progress ?? 0}%` }} />
-                </div>
-                <div className="hobby-space-actions">
-                  <span className="continue-percent">{cont?.progress ?? 0}%</span>
-                  <button
-                    type="button"
-                    className="recommend-cta"
-                    onClick={() => advanceProgress(hobby.value)}
-                  >
-                    Continue →
-                  </button>
-                </div>
-              </div>
-
-              <div className="hobby-space-sections">
-                {hobby.sections.map((section) => (
-                  <div key={section.title} className="hobby-section">
-                    <h4>{section.title}</h4>
-                    <ul>
-                      {section.items.map((item) => {
-                        const isSaved = saved.includes(item.id)
-                        return (
-                          <li key={item.id}>
-                            <div>
-                              <p className="hobby-item-title">{item.title}</p>
-                              {item.subtitle && <p className="hobby-item-sub">{item.subtitle}</p>}
-                            </div>
-                            <button
-                              type="button"
-                              className={`hobby-save ${isSaved ? 'hobby-save--on' : ''}`}
-                              aria-pressed={isSaved}
-                              aria-label={`${isSaved ? 'Unsave' : 'Save'} ${item.title}`}
-                              onClick={() => toggleSaved(hobby.value, item.id)}
-                            >
-                              {isSaved ? '🔖' : '🏷️'}
-                            </button>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </article>
-          </section>
-        )
-      })}
-
-      {/* For you */}
-      <section className="hobbies-section">
-        <header className="hobbies-section-head">
-          <h2>❤️ For you today</h2>
-        </header>
-        <div className="recommend-grid">
-          {forYou.map((rec) => (
-            <article key={`${rec.hobby}-${rec.title}`} className={`recommend-card recommend-card--${rec.tone}`}>
-              <div>
-                <p className="recommend-kicker">{rec.label.toUpperCase()}</p>
-                <h3>{rec.title}</h3>
-                <p className="recommend-meta">{rec.meta}</p>
-                <p className="recommend-reason">{rec.reason}</p>
-              </div>
-              <span className="recommend-art" aria-hidden="true">{rec.icon}</span>
-            </article>
-          ))}
+          {profile?.characterPreference === 'male' ? (
+            <img className="hobbies-avatar" src={hobbyBoy} alt="" />
+          ) : (
+            <span className="hobbies-mascot">🧘</span>
+          )}
         </div>
       </section>
 
       {/* Explore */}
       <section className="hobbies-section">
         <header className="hobbies-section-head">
-          <h2>🌿 Explore hobbies</h2>
+          <h2><TealLeafIcon /> Explore hobbies</h2>
+          <span className="hobbies-more">See all ›</span>
         </header>
         <div className="explore-rail">
-          {exploreCategories.map((category, i) => {
-            const meta = getHobbyMeta(category, i)
+          {visibleExplore.map((category) => {
+            const meta = getHobbyMeta(category, exploreCategories.indexOf(category))
             return (
               <Link
                 key={category}
                 to="/hobbies"
                 className={`explore-card explore-card--${meta.tone}`}
               >
-                <span className="explore-card-icon" aria-hidden="true">{meta.icon}</span>
+                <span className="explore-card-icon" aria-hidden="true">
+                  {category === 'Reading' ? (
+                    <BooksStackIcon />
+                  ) : category === 'Yoga' ? (
+                    <MatIcon />
+                  ) : category === 'Crochet' ? (
+                    <YarnNeedlesIcon />
+                  ) : category === 'Art' ? (
+                    <PaletteIcon />
+                  ) : category === 'Music' ? (
+                    <HeadphonesIcon />
+                  ) : (
+                    meta.icon
+                  )}
+                </span>
                 <span className="explore-card-name">
                   {category} <span aria-hidden="true">›</span>
                 </span>
@@ -206,13 +197,38 @@ export default function Hobbies() {
         </div>
       </section>
 
+      {/* For you */}
+      <section className="hobbies-section">
+        <header className="hobbies-section-head">
+          <h2>❤️ For you today</h2>
+          <span className="hobbies-more">View more ›</span>
+        </header>
+        <div className="recommend-grid">
+          {visibleForYou.map((rec) => (
+            <article key={`${rec.hobby}-${rec.title}`} className={`recommend-card recommend-card--${rec.tone}`}>
+              <div>
+                <p className="recommend-kicker">{rec.label.toUpperCase()}</p>
+                <h3>{rec.title}</h3>
+                <p className="recommend-meta">{rec.meta}</p>
+                <p className="recommend-reason">{rec.reason}</p>
+                <Link to="/hobbies" className="recommend-cta">
+                  {rec.label.toLowerCase().includes('crochet') ? 'Explore now' : 'View details'} ›
+                </Link>
+              </div>
+              <span className="recommend-art" aria-hidden="true">{rec.icon}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
       {/* Quick resources */}
       <section className="hobbies-section">
         <header className="hobbies-section-head">
           <h2>💡 Quick resources</h2>
+          <span className="hobbies-more">See all ›</span>
         </header>
         <div className="resource-grid">
-          {quickResources.map((resource) => (
+          {visibleResources.map((resource) => (
             <Link
               key={resource.title}
               to={resource.path}
@@ -229,29 +245,24 @@ export default function Hobbies() {
       {/* Continue */}
       <section className="hobbies-section">
         <header className="hobbies-section-head">
-          <h2>◷ Continue where you left off</h2>
+          <h2><TealClockIcon /> Continue where you left off</h2>
+          <span className="hobbies-more">See all ›</span>
         </header>
         <div className="continue-rail">
-          {continueItems.map((item) => (
+          {visibleContinue.map((item) => (
             <article key={item.hobby} className="continue-card">
               <span className={`continue-thumb continue-thumb--${item.tone}`} aria-hidden="true">
                 {item.icon}
+                <span className="continue-play">▶</span>
               </span>
-              <p className="continue-hobby">{item.label}</p>
-              <h3>{item.title}</h3>
-              <p className="continue-meta">{item.meta}</p>
-              <div className="continue-progress">
-                <span style={{ width: `${item.progress}%` }} />
-              </div>
-              <div className="hobby-space-actions">
+              <div className="continue-body">
+                <p className={`continue-hobby continue-hobby--${item.tone}`}>{item.label}</p>
+                <h3>{item.title}</h3>
+                <p className="continue-meta">{item.meta}</p>
+                <div className="continue-progress">
+                  <span style={{ width: `${item.progress}%` }} />
+                </div>
                 <p className="continue-percent">{item.progress}%</p>
-                <button
-                  type="button"
-                  className="recommend-cta"
-                  onClick={() => advanceProgress(item.hobby)}
-                >
-                  Continue
-                </button>
               </div>
             </article>
           ))}
